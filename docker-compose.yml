@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: fastapi_app
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - CELERY_BROKER_URL=redis://:your_secure_password@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:your_secure_password@redis:6379/0
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=your_secure_password
+    depends_on:
+      - redis
+      - celery_worker
+    volumes:
+      - ./src:/app
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  celery_worker:
+    container_name: celery_worker
+    build: .
+    command: celery -A celery_worker.celery_app worker --loglevel=info
+    environment:
+      - CELERY_BROKER_URL=redis://:your_secure_password@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:your_secure_password@redis:6379/0
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=your_secure_password
+    volumes:
+      - ./src:/app
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --requirepass your_secure_password
+    environment:
+      - REDIS_PASSWORD=your_secure_password
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "your_secure_password", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 3
+
+volumes:
+  redis_data:
