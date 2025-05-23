@@ -1,4 +1,4 @@
-# Spark Log Analytics Service
+# 🚀 Spark Log Analytics Service
 
 A distributed log processing service built with FastAPI, Celery, and Redis. This service provides an API for ingesting and analyzing Apache Spark log data asynchronously.
 
@@ -12,14 +12,30 @@ A distributed log processing service built with FastAPI, Celery, and Redis. This
 - **Persistent Storage**: SQLite database for reliable data persistence
 - **Scalable Architecture**: Redis-backed task queue for horizontal scaling
 
+## ⚠️ Current Limitations
+
+- **Authentication**: Currently no authentication mechanism implemented
+- **Rate Limiting**: No rate limiting implemented
+- **Data Retention**: No automatic cleanup of old data
+- **Load Testing**: Not yet load tested for production workloads
+
 ## 🛠 Tech Stack
 
-- **API Framework**: [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast (high-performance) web framework
-- **Task Queue**: [Celery](https://docs.celeryq.dev/) - Distributed task queue with focus on real-time processing
-- **Message Broker**: [Redis](https://redis.io/) - In-memory data structure store, used as message broker
-- **Database**: [SQLite](https://www.sqlite.org/) - Serverless, self-contained SQL database
-- **Containerization**: [Docker](https://www.docker.com/) - Container platform for easy deployment
-- **Python Version**: 3.10+
+| Component | Technology |
+|-----------|------------|
+| **API Framework** | [FastAPI](https://fastapi.tiangolo.com/) |
+| **Task Queue** | [Celery](https://docs.celeryq.dev/) |
+| **Message Broker** | [Redis](https://redis.io/) |
+| **Database** | [SQLite](https://www.sqlite.org/) |
+| **Containerization** | [Docker](https://www.docker.com/) |
+| **Python Version** | 3.10+ |
+
+## 🔍 Project Status
+
+✅ Core functionality implemented  
+🔄 Authentication in progress  
+📈 Monitoring to be implemented  
+🔒 Security enhancements planned
 
 ## 🗂 Project Structure
 
@@ -250,3 +266,4 @@ Once the service is running, you can access:
    ```bash
    curl -X GET "http://localhost:8000/logs/summary?date=2025-05-22" -H "accept: application/json"
    ```
+
