@@ -175,6 +175,60 @@ Once the service is running, you can access:
   }'
   ```
 
+### 🔍 Get Job Status
+- **GET** `/logs/jobs/{job_id}`
+  - Get the current status and results of a specific job
+  - Path parameter: `job_id` (string, required) - The ID of the job to retrieve
+  
+  **Example Request:**
+  ```bash
+  curl -X GET "http://localhost:8000/logs/jobs/550e8400-e29b-41d4-a716-446655440000" -H "accept: application/json"
+  ```
+  
+  **Possible Responses:**
+  
+  *While job is processing (HTTP 202):*
+  ```json
+  {
+    "task_id": "550e8400-e29b-41d4-a716-446655440000",
+    "status": "processing"
+  }
+  ```
+  
+  *When job is complete (HTTP 200):*
+  ```json
+  {
+    "task_id": "550e8400-e29b-41d4-a716-446655440000",
+    "status": "success",
+    "result": {
+      "job_id": 12345,
+      "status": "success",
+      "start_time": "2025-05-22T10:30:00Z",
+      "end_time": "2025-05-22T10:35:00Z",
+      "duration_seconds": 300,
+      "total_tasks": 100,
+      "failed_tasks": 2,
+      "success_rate": 0.98
+    }
+  }
+  ```
+  
+  **Response Fields:**
+  
+  | Field | Type | Description |
+  |-------|------|-------------|
+  | `task_id` | String | The ID of the task being checked |
+  | `status` | String | Current status (`processing` or `success`) |
+  | `result` | Object | (Only present when complete) Detailed job results |
+  | `result.job_id` | Integer | Spark job ID |
+  | `result.status` | String | Final job status (`success` or `failure`) |
+  | `result.start_time` | String | ISO 8601 timestamp of job start |
+  | `result.end_time` | String | ISO 8601 timestamp of job completion |
+  | `result.duration_seconds` | Float | Total job duration in seconds |
+  | `result.total_tasks` | Integer | Total number of tasks in the job |
+  | `result.failed_tasks` | Integer | Number of failed tasks |
+  | `result.success_rate` | Float | Success rate (0.0 to 1.0) |
+
 ### 📊 Get Analytics Summary
 - **GET** `/logs/summary`
   - Get summary of analytics for a specific date
