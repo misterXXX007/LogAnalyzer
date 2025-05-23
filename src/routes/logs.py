@@ -34,7 +34,7 @@ router = APIRouter(
 )
 
 @router.post(
-    "/ingest",
+    "/logs/ingest",
     status_code=status.HTTP_202_ACCEPTED,
     summary="Ingest log data",
     response_description="Log ingestion initiated"
@@ -101,7 +101,7 @@ async def ingest_log(request: Request) -> Dict[str, Any]:
         )
 
 @router.get(
-    "/jobs/{job_id}",
+    "/analytics/jobs/{job_id}",
     summary="Get job analytics by ID",
     response_description="Job analytics data"
 )
@@ -162,7 +162,7 @@ async def get_job_analytics(
     
 
 @router.get(
-    "/summary",
+    "/analytics/summary",
     response_model=AnalyticsResponse,
     summary="Get analytics summary for a date",
     response_description="Analytics summary data"

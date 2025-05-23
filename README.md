@@ -176,13 +176,13 @@ Once the service is running, you can access:
   ```
 
 ### 🔍 Get Job Status
-- **GET** `/logs/jobs/{job_id}`
+- **GET** `/analytics/jobs/{job_id}`
   - Get the current status and results of a specific job
   - Path parameter: `job_id` (string, required) - The ID of the job to retrieve
   
   **Example Request:**
   ```bash
-  curl -X GET "http://localhost:8000/logs/jobs/550e8400-e29b-41d4-a716-446655440000" -H "accept: application/json"
+  curl -X GET "http://localhost:8000/analytics/jobs/550e8400-e29b-41d4-a716-446655440000" -H "accept: application/json"
   ```
   
   **Possible Responses:**
@@ -230,13 +230,13 @@ Once the service is running, you can access:
   | `result.success_rate` | Float | Success rate (0.0 to 1.0) |
 
 ### 📊 Get Analytics Summary
-- **GET** `/logs/summary`
+- **GET** `/analytics/summary`
   - Get summary of analytics for a specific date
   - Query parameter: `date` (format: YYYY-MM-DD)
   
   **Example Request:**
   ```bash
-  curl -X GET "http://localhost:8000/logs/summary?date=2025-05-22" -H "accept: application/json"
+  curl -X GET "http://localhost:8000/analytics/summary?date=2025-05-22" -H "accept: application/json"
   ```
   
   **Response Fields:**
@@ -289,9 +289,9 @@ Once the service is running, you can access:
   ```
 
 ### Get Job Analytics
-- **GET** `/logs/jobs/{job_id}`
+- **GET** `/analytics/jobs/{job_id}`
   - Retrieve analytics for a specific Spark job
-  - Example: `GET /logs/jobs/1234567`
+  - Example: `GET /analytics/jobs/1234567`
 
 ## Complete Workflow Example
 
@@ -318,6 +318,6 @@ Once the service is running, you can access:
 
 4. **View analytics**
    ```bash
-   curl -X GET "http://localhost:8000/logs/summary?date=2025-05-22" -H "accept: application/json"
+   curl -X GET "http://localhost:8000/analytics/summary?date=2025-05-22" -H "accept: application/json"
    ```
 
