@@ -7,6 +7,7 @@ A distributed log processing service built with FastAPI, Celery, and Redis. This
 - **Asynchronous Processing**: Built with Celery for efficient background task processing
 - **Idempotent Operations**: Safe for retries without duplicate processing
 - **Out-of-Order Processing**: Handles log events regardless of their arrival order
+- **Enhanced Logging**: Detailed logging for debugging and monitoring
 - **RESTful API**: Clean, well-documented endpoints for all operations
 - **Real-time Analytics**: Get insights into job performance and metrics
 - **Persistent Storage**: SQLite database for reliable data persistence
